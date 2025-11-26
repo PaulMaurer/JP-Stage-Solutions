@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materialübersicht Technik</title>
+    <!-- Lade Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                        },
+                        // Definiere benutzerdefinierte Schriftgrößen basierend auf der Vorlage
+                        fontSize: {
+                            '3xl-custom': '2rem', // Für "KONTAKT"
+                            '6xl-custom': '3.5rem', // Für die großen Überschriften
+                        }
+                    }
+                }
+            }
+        </script>
+        <style>
+            /* Setze Inter als Standard-Schriftart */
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+            /* Ihre Breitenanpassung für lg:w-1/2 */
+            
+        </style>
+</head>
+<body class="bg-primary-light min-h-screen">
+
+    <h1 class="text-3xl-custom font-extrabold tracking-tight text-center pt-4">
+                            Materialübersicht Technik
+    </h1>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div id="material-list" class="space-y-10">
+            <!-- Die Materialliste wird hier vom JavaScript eingefügt -->
+        </div>
+    </main>
+    <div class="flex items-center justify-center">
+        <a href="index.html">
+            <img src="Black_white.png" alt="JP-Stage-Solutions Logo" class="h-16 mb-8 w-auto object-contain">
+        </a>
+    </div>
+    </div>
+    <footer class="mt-12 py-6 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2025 JP-Stage-Solutions
+        </div>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // DEIN MATERIAL BESTAND - HIER KANNST DU DIE DATEN ANPASSEN
+        // ==========================================================
+        /**
+         * Definition des Materialbestands.
+         * Die Schlüssel (Keys) sind die Kategorien und bestimmen die Reihenfolge und die Hauptnummer (z.B. 'Ton' -> 1.x).
+         * Jeder Eintrag muss 'titel' (Titel) und 'menge' (Menge/Stückzahl) enthalten.
+         */
+        const materialData = {
+            "Ton": [
+                { titel: "Funkstrecke Sennheiser EW 100 G4", menge: 4 },
+                { titel: "Digitalmischpult Allen & Heath SQ-5", menge: 1 },
+                { titel: "Stagebox Allen & Heath DX168", menge: 1 },
+                { titel: "Kondensatormikrofon Rode NT5 (Paar)", menge: 2 },
+                { titel: "Stativ K&M 210/2", menge: 8 },
+            ],
+            "Licht": [
+                { titel: "Robe Colorspot 250 AT", menge: 6 },
+                { titel: "Spot Moving Head 60W LED", menge: 4 },
+                { titel: "Lightcraft BEAM X7", menge: 4 },
+                { titel: "LED Bar 1m RGBW", menge: 4 },
+                { titel: "1 KW Stufenlinsen", menge: 8 },
+                { titel: "Blinder 4 Leuchtmittel", menge: 2 },
+                { titel: "DMX-Controller Zero88 FLX S24", menge: 1 },
+                { titel: "GrandMA 2 OnPC Pult", menge: 1 },
+                { titel: "EUROLITE DPX-1210 DMX Dimmerpack", menge: 2},
+            ],
+            "Video": [
+                { titel: "Blackmagic ATEM Television Studio HD", menge: 1 },
+                { titel: "Blackmagic ATEM Mini", menge: 1 },
+                { titel: "Blackmagic Web-Presenter HD", menge: 1 },
+                { titel: "Blackmagic Hyperdeck", menge: 1 },
+                { titel: "Blackmagic Studio Camera 4K Pro G2", menge: 2 },
+                { titel: "Sony Camcorder", menge: 2 },
+            ],
+            "Sonstiges": [
+                { titel: "Kabelbrücke 1m", menge: 40 },
+                { titel: "Nebelmaschine", menge: 3 },
+                { titel: "Leichtschaumgenerator", menge: 1 },
+            ]
+        };
+
+        // Funktion, um die Liste in HTML zu rendern
+        function renderMaterialList() {
+            const listContainer = document.getElementById('material-list');
+            let htmlContent = '';
+            let categoryIndex = 1;
+
+            // Iteriere über die Kategorien
+            for (const category in materialData) {
+                if (materialData.hasOwnProperty(category)) {
+                    const items = materialData[category];
+                    let itemIndex = 1;
+
+                    // Erstelle den Header für die Kategorie
+                    // Die Sektion ist jetzt minimalistischer: kein Schatten, kein oberer Rand, nur etwas Padding
+                    htmlContent += `
+                        <section class="bg-white p-0 rounded-lg">
+                            <h2 class="text-2xl font-bold text-primary-dark mb-4 px-0 border-l-4 border-primary-dark pl-4 pb-0 pt-0">
+                                ${category}
+                            </h2>
+                            <div class="space-y-0 mt-4 border-t border-gray-200">
+                    `;
+
+                    // Iteriere über die einzelnen Einträge in der Kategorie
+                    items.forEach(item => {
+                        const itemNumber = `${categoryIndex}.${itemIndex}`;
+
+                        // Erstelle den Eintrag
+                        // Minimalistisches Design: Keine Ränder, kein Hintergrund, nur eine dünne Trennlinie unten
+                        htmlContent += `
+                            <div class="flex items-start justify-between py-4 border-b border-gray-100 last:border-b-0 px-1">
+                                <div class="flex-grow flex items-start">
+                                    <!-- Inventarnummer im Akzent-Stil wie der linke Strich im Impressum -->
+                                    <span class="font-mono text-base font-semibold text-primary-dark mr-6 pt-0.5">${itemNumber}</span>
+                                    <span class="text-base font-normal text-gray-900">${item.titel}</span>
+                                </div>
+                                <div class="flex-shrink-0 text-base font-medium text-gray-600 pl-4">
+                                    ${item.menge} Stk.
+                                </div>
+                            </div>
+                        `;
+                        itemIndex++;
+                    });
+
+                    htmlContent += `
+                            </div>
+                        </section>
+                    `;
+                    categoryIndex++;
+                }
+            }
+
+            // Füge den generierten Inhalt in den Container ein
+            listContainer.innerHTML = htmlContent;
+        }
+
+        // Starte die Render-Funktion, sobald die Seite geladen ist
+        document.addEventListener('DOMContentLoaded', renderMaterialList);
+
+        // Optional: Implementierung für Firebase (wie in den Canvas-Regeln gefordert),
+        // aktuell aber nicht für die Funktion dieses statischen Listen-Szenarios benötigt.
+        // Wenn du die Daten persistent speichern oder von anderen Benutzern bearbeiten lassen möchtest,
+        // müsste hier die Firebase-Logik integriert werden.
+    </script>
+</body>
+</html>

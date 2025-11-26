@@ -1,0 +1,121 @@
+    <!DOCTYPE html>
+    <html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Impressum | JP-Stage-Solutions</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Konfiguration für die 'Inter' Schriftart und die Anpassung der Schriftgrößen -->
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                        },
+                        // Definiere benutzerdefinierte Schriftgrößen basierend auf der Vorlage
+                        fontSize: {
+                            '3xl-custom': '2rem', // Für "KONTAKT"
+                            '6xl-custom': '3.5rem', // Für die großen Überschriften
+                        }
+                    }
+                }
+            }
+        </script>
+        <style>
+            /* Setze Inter als Standard-Schriftart */
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+            /* Ihre Breitenanpassung für lg:w-1/2 */
+            
+        </style>
+        
+    </head>
+    <body class="font-sans min-h-screen bg-white text-gray-900 antialiased">
+
+        <!-- Haupt-Layout-Container: Zentriert und mit maximaler Breite -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+            
+            <!-- Flex-Container für die zwei Spalten: Kontakt links, Impressum/Navigation rechts -->
+            <div class="flex flex-col lg:flex-row justify-between">
+                
+                <!-- Linke Spalte: KONTAKT und Details -->
+                <div class="flex-shrink-0 w-full lg:w-1/2 flex">
+                    <!-- Vertikaler schwarzer Strich links, wie in der Vorlage -->
+                    <div class="w-1 bg-black mr-8 sm:mr-16 md:mr-20 lg:mr-24 h-auto"></div>
+                    
+                    <div class="space-y-12">
+                        <!-- KONTAKT Sektion -->
+                        <h1 class="text-3xl-custom font-extrabold tracking-tight">
+                            Impressum
+                        </h1>
+                        <h2 class="text-3xl-custom font-semibold tracking-tight">JP-Stage-Solutions ist eine Marke von Hardware-BEAM</h2>
+                        
+                        <div class="space-y-1">
+                            <p class="text-xl font-semibold uppercase text-gray-500 tracking-wider">Adresse:</p>
+                            <address class="not-italic text-lg font-bold leading-relaxed">
+                                Paul Maurer<br>
+                                Hardware Beam<br>
+                                Waldstraße 11<br>
+                                75242 Neuhausen<br>
+                                Deutschland
+                            </address>
+                        </div>
+
+                        <!-- E-MAIL ADRESSE -->
+                        <div class="space-y-1">
+                            <p class="text-xl font-semibold uppercase text-gray-500 tracking-wider">Kontakt</p>
+                            <a href="mailto:info@jpstage.de" class="text-xl font-bold hover:text-blue-600 transition duration-150">
+                                E-Mail: info@jpstage.de
+                            </a><br>
+                            <a href="tel:+4915563612325" class="text-xl font-bold hover:text-blue-600 transition duration-150">
+                                Telefon: +49 155 63612325
+                            </a>
+                        </div>
+                        
+                        <!-- TELEFON -->
+                        <div class="space-y-1">
+                            <p class="text-xl font-semibold uppercase text-gray-500 tracking-wider">Umsatzsteuer-ID</p>
+                            <p class="text-lg font-bold leading-relaxed">
+                                Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+                                DE356967386
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-1">
+                            <p class="text-xl font-semibold uppercase text-gray-500 tracking-wider">Verbraucherstreitbeilegung/Universalschlichtungsstelle</p>
+                            <p class="text-lg font-bold leading-relaxed">
+                                Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                            </p>
+                        </div>
+                        <!--
+                            Im deutschen Impressum ist es Pflicht,
+                            zusätzlich die folgenden Informationen anzugeben.
+                            Diese werden hier nur als Platzhalter für das Layout eingefügt.
+                            Bitte mit echten Daten ersetzen!
+                        -->
+        
+                    </div>
+                </div>
+
+                <!-- Rechte Spalte: Navigation, Impressumstext und Copyright -->
+                <div class="w-full lg:w-1/2 mt-16 lg:mt-0 lg:pl-40 flex flex-col justify-between">
+                    <div class="" >
+                        <a href="index.html">
+                            <img src="Black_white.png" alt="JP-Stage-Solutions Logo" class="h-16 mb-8 w-auto object-contain" >
+                        </a>
+                        <img src="logo-blackfont-nofan.png" alt="Hardware-BEAM Logo Schriftzug" class="h-20 mb-12 w-auto object-contain">
+                    </div>
+
+                    <!-- Footer und Copyright -->
+                    <footer class="mt-20 lg:mt-0 text-right text-gray-500 text-sm">
+                        <p>© 2024. JP-Stage-Solutions.</p>
+                        <p>Alle Rechte vorbehalten.</p>
+                    </footer>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+    </html>

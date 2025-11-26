@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JP-Stage-Solutions | Veranstaltungstechnik</title>
+    <meta name="description" content="Professionelle Licht- und Tontechnik für Ihre Events." />
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration for Tailwind -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                dark: '#050505', // Very dark background
+                gray: '#1a1a1a', // Secondary dark
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+                'fade-in': 'fadeIn 1.5s ease-out forwards',
+                'bounce-slow': 'bounce 2s infinite',
+            },
+            keyframes: {
+                fadeIn: {
+                    '0%': { opacity: '0', transform: 'translateY(20px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                }
+            }
+          },
+        },
+      }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Alle Bilder mit der Klasse 'js-timed-fade' auswählen
+        const imageElements = document.querySelectorAll('.js-timed-fade');
+        
+        if (imageElements.length === 0) return;
+
+        // Callback-Funktion (bleibt fast identisch)
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+            // Wenn ein BILD sichtbar wird...
+            if (entry.isIntersecting) {
+                
+                // 1. Stoppe die Beobachtung FÜR DIESES EINE BILD
+                observer.unobserve(entry.target); 
+                
+                // 2. Starte den 1-Sekunden-Timer FÜR DIESES EINE BILD
+                setTimeout(() => {
+                // Setze die CSS-Variable auf dem spezifischen Element, um den Farbübergang zu starten
+                entry.target.style.setProperty('--grayscale-amount', '0');
+                }, 1000); // 1 Sekunde Verzögerung
+
+            }
+            });
+        };
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 
+        };
+
+        // 3. Erstelle den Observer (nur einmal)
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        // 4. Schleife durch alle gefundenen Bilder und weise jedes einzelne dem Observer zu
+        imageElements.forEach(image => {
+            observer.observe(image);
+        });
+        });
+    </script>
+
+    <!-- Custom CSS for Scroll Snapping and Scrollbar Hiding -->
+    <style>
+      /* Container that handles the snapping */
+      .snap-container {
+          scroll-snap-type: y mandatory;
+          overflow-y: scroll;
+          height: 100vh;
+          scroll-behavior: smooth;
+      }
+      
+      /* Each section snaps to start */
+      .snap-section {
+          scroll-snap-align: start;
+          width: 100%;
+          height: 100vh;
+          overflow: hidden;
+      }
+
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body class="bg-brand-dark text-white overflow-hidden m-0 p-0">
+    
+    <!-- Main Scroll Container -->
+    <div id="main-scroll" class="snap-container no-scrollbar">
+
+      <!-- 1. HERO SECTION -->
+      <section class="snap-section relative flex flex-col items-center justify-center bg-black">
+        
+        <!-- Scenic Background Image -->
+        <div class="absolute inset-0 z-0">
+          <!-- TODO: Ersetze src mit deinem Bild -->
+          <img 
+            src="Video-Mixer.jpg" 
+            alt="Hintergrundbild mit Veranstaltungstechnik" 
+            class="w-full h-full object-cover opacity-50"
+          />
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        </div>
+
+        <!-- Floating Logo Area -->
+        <div class="z-10 animate-fade-in flex flex-col items-center p-6 md:p-10 border-4 border-white bg-black/40 backdrop-blur-sm shadow-2xl">
+
+          <img src="White_Transparent.png" class="h-32 w-auto" alt="Logo"> 
+        </div>
+
+        <!-- Scroll Down Arrow (Wackelt/Bounced) -->
+        <button 
+          onclick="scrollToNext()"
+          class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 cursor-pointer bg-transparent border-none outline-none group"
+          aria-label="Nach unten scrollen"
+        >
+          <div class="animate-bounce flex flex-col items-center text-white opacity-70 group-hover:opacity-100 transition-opacity">
+            <span class="text-[10px] uppercase tracking-[0.2em] mb-2 font-light">Scroll</span>
+            <!-- Chevron Down Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="7 13 12 18 17 13"></polyline>
+              <polyline points="7 6 12 11 17 6"></polyline>
+            </svg>
+          </div>
+        </button>
+      </section>
+
+      <!-- 2. SECTION: Text Left, Image Right -->
+      <section class="snap-section bg-brand-dark flex items-center justify-center relative">
+        <div class="container mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+          
+          <!-- Text Area -->
+          <div class="flex-1 flex flex-col justify-center order-2 md:order-1 z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Licht & Ton <br/>
+              <span class="text-gray-500">Design</span>
+            </h2>
+            <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+              Wir kreieren Atmosphären, die bewegen. Mit modernster Lichttechnik und präzisem Sounddesign sorgen wir dafür, dass Ihre Veranstaltung nicht nur gesehen, sondern gefühlt wird. 
+            </p>
+          </div>
+
+          <!-- Image Area -->
+          <div class="flex-1 w-full flex items-center justify-center order-1 md:order-2 h-[40vh] md:h-auto">
+            <div class="relative w-full max-w-md aspect-square border border-white/10 p-2">
+               <div class="absolute inset-0 bg-white/5 translate-x-4 translate-y-4 -z-10"></div>
+               <img 
+                 src="Church.jpeg" 
+                 alt="Lichttechnik" 
+                 id="timed-image-fade" 
+                 class="w-full h-full object-cover transition-all duration-700 js-timed-fade" 
+                 style="filter: grayscale(var(--grayscale-amount, 1));"
+               />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. SECTION: Image Left, Text Right -->
+      <section class="snap-section bg-black flex items-center justify-center relative">
+        <div class="container mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+          
+          <!-- Image Area -->
+          <div class="flex-1 w-full flex items-center justify-center h-[40vh] md:h-auto">
+            <div class="relative w-full max-w-md aspect-square border border-white/10 p-2">
+               <div class="absolute inset-0 bg-white/5 -translate-x-4 translate-y-4 -z-10"></div>
+               <img 
+                 src="Camera.jpeg" 
+                 alt="Rednerpult mit Mikrofon" 
+                 id="timed-image-fade2" 
+                 class="w-full h-full object-cover transition-all duration-700 js-timed-fade" 
+                 style="filter: grayscale(var(--grayscale-amount, 1));"
+               />
+            </div>
+          </div>
+
+          <!-- Text Area -->
+          <div class="flex-1 flex flex-col justify-center text-left md:text-right md:items-end z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Videotechnik & <br/>
+              <span class="text-gray-500">Livestreaming</span>
+            </h2>
+            <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+              Mit bis zu 6 Kameras und modernster Übertragungstechnik setzen wir Ihre Veranstaltung Online in Szene - in HD-Qualität und auf der Plattform Ihrer Wahl.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. SECTION: Text Left, Image Right -->
+      <section class="snap-section bg-brand-dark flex items-center justify-center relative">
+        <div class="container mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+          
+          <!-- Text Area -->
+          <div class="flex-1 flex flex-col justify-center order-2 md:order-1 z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Full-Service oder<br/>
+              <span class="text-gray-500">Dry-Hire</span>
+            </h2>
+            <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+              Sie entscheiden, ob wir Ihre Veranstaltung komplett betreuen oder Ihnen nur die Technik zur Verfügung stellen. Flexibilität und Kundenzufriedenheit stehen bei uns an erster Stelle.
+            </p>
+          </div>
+
+          <!-- Image Area -->
+          <div class="flex-1 w-full flex items-center justify-center order-1 md:order-2 h-[40vh] md:h-auto">
+            <div class="relative w-full max-w-md aspect-square border border-white/10 p-2">
+               <div class="absolute inset-0 bg-white/5 translate-x-4 translate-y-4 -z-10"></div>
+               <img 
+                 src="mixer.jpg" 
+                 alt="Mischpult für Ton" 
+                 id="timed-image-fade3" 
+                 class="w-full h-full object-cover transition-all duration-700 js-timed-fade" 
+                 style="filter: grayscale(var(--grayscale-amount, 1));"
+               />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. SECTION: Image Left, Text Right -->
+      <section class="snap-section bg-black flex items-center justify-center relative">
+        <div class="container mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+          
+          <!-- Image Area -->
+          <div class="flex-1 w-full flex items-center justify-center h-[40vh] md:h-auto">
+            <div class="relative w-full max-w-md aspect-square border border-white/10 p-2">
+               <div class="absolute inset-0 bg-white/5 -translate-x-4 translate-y-4 -z-10"></div>
+               <img 
+                 src="Conference.jpeg" 
+                 alt="Rednerpult mit Mikrofon" 
+                 id="timed-image-fade4" 
+                 class="w-full h-full object-cover transition-all duration-700 js-timed-fade" 
+                 style="filter: grayscale(var(--grayscale-amount, 1));"
+               />
+            </div>
+          </div>
+
+          <!-- Text Area -->
+          <div class="flex-1 flex flex-col justify-center text-left md:text-right md:items-end z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Konferenzen & <br/>
+              <span class="text-gray-500">Firmenevents</span>
+            </h2>
+            <p class="text-gray-300 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+              Auch bei Firmenevents können wir aufgrund unseres breiten Angebots mit maßgeschneiderten Lösungen unsere Kunden überzeugen. 
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 6. FOOTER / CONTACT SECTION (White Background) -->
+      <section class="snap-section bg-white text-black flex items-center justify-center relative">
+        <div class="container mx-auto px-6 h-full grid grid-cols-1 md:grid-cols-2 gap-12 content-center">
+          
+          <!-- Contact Column -->
+          <div class="flex flex-col justify-center border-l-4 border-black pl-8 space-y-8">
+            <h3 class="text-5xl font-bold uppercase tracking-wide">Kontakt</h3>
+            
+            <div class="space-y-6">
+              <div class="flex flex-col">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">E-Mail Adresse</span>
+                <a href="mailto:info@jpstage.de" class="text-2xl md:text-3xl font-light hover:text-gray-600 transition-colors">
+                  info@jpstage.de
+                </a>
+              </div>
+
+              <div class="flex flex-col">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Telefon</span>
+                <a href="tel:+4915563612325" class="text-2xl md:text-3xl font-light hover:text-gray-600 transition-colors">
+                  +49 155 63612325
+                </a>
+              </div>
+
+              <div class="flex flex-col pt-4">
+                 <span class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Hauptsitz</span>
+                 <p class="text-xl font-light leading-snug">
+                   Waldstraße 11<br>
+                   75242 Neuhausen<br>
+                   Deutschland
+                 </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Links & Impressum Column -->
+          <div class="flex flex-col justify-center items-start md:items-end md:text-right space-y-4">
+             <a href="impressum.html" class="text-4xl md:text-6xl font-bold text-black hover:text-gray-600 transition-colors">
+               Impressum
+             </a>
+             <a href="material.html" class="text-4xl md:text-6xl font-bold text-black hover:text-gray-600 transition-colors">
+               Material
+             </a>
+             <a href="referenzen.html" class="text-4xl md:text-6xl font-bold text-black hover:text-gray-600 transition-colors">
+               Referenzen
+             </a>
+
+             <div class="mt-16 text-sm text-gray-500 font-medium">
+               &copy; 2025 JP-Stage-Solutions.<br>
+               <div class="flex items-center">
+                <span class="text-gray-800 text-sm">Eine Marke von </span>
+                <a href="https://paulmaurer.github.io/" class="flex items-center ml-2 text-lg font-bold text-black">
+                    <img src="logo-blackfont-nofan.png" alt="Hardware-BEAM Logo" class="h-10 mr-2">
+                </a>
+               </div>
+               Alle Rechte vorbehalten.
+             </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Script for interaction -->
+    <script>
+      // Function to scroll to the next section (the first content section)
+      function scrollToNext() {
+        const container = document.getElementById('main-scroll');
+        const height = window.innerHeight;
+        
+        // Smooth scroll down by one viewport height
+        container.scrollBy({
+          top: height,
+          behavior: 'smooth'
+        });
+      }
+    </script>
+  </body>
+</html>
